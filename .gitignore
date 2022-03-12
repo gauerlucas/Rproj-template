@@ -7,4 +7,5 @@
 output/
 # ignore generated html files
 *.html
-
+# except the example .html file
+!example/main_doc.html
