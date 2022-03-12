@@ -10,7 +10,7 @@
 
 Check [example/main_doc.html](example/main_doc.html) to get an overview of the end result.
 
-Objective : You only work on Rmakdown notebooks.  
+Basic principle : You only work on Rmarkdown notebooks.  
 It automatically generates synthetic HTML files to share or archive as a lab notebook.  
 The main script to run is found in `markdown/main_doc.rmd` and is self-explanatory.
 
