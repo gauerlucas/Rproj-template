@@ -12,6 +12,9 @@ output:
     lightbox: true
     gallery: true
     highlight: tango
+bibliography: references.bib
+csl: vancouver.csl
+link-citations: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +41,10 @@ In `markdown/` :
 
 -   `raw_scripts/extracted/` : R scripts automatically extracted from Markdown documents in `markdown/sections`.
 -   `sections/` : Markdown scripts used to process data.
+-   `inserts/` : objects to import (*ie.* images generated elsewhere).
 -   `main_doc.Rmd` : Main working/synthetic document and HTML version to share and review.
+-   `references.bib` : bibliography file used in this document.
+-   `vancouver.csl`: citation format used in this document (Vancouver numeric).
 
 In `output/` (this folder is automatically created when running code in this document) :
 
@@ -46,6 +52,18 @@ In `output/` (this folder is automatically created when running code in this doc
 -   `figs/` : figures generated during the processing.
 -   `complete_extracted_table.csv` : summary across all patients (Excel-friendly CSV).
 -   `complete_extracted_table.RData` : summary across all patients (RData file).
+
+### Memo : How to link to Github from existing folder
+
+1.  Open `template-proj.Rproj`, then run `usethis::use_git()`.
+2.  Create an empty `project-name` GitHub repo.
+3.  Open a terminal and `cd` to `template-proj.Rproj` place.
+4.  Run `git push` commands :
+
+```{bash eval=FALSE}
+git remote add origin git@github.com:Username/project-name.git
+git push -u origin master
+```
 
 ### Libraries used in this project
 
@@ -122,6 +140,14 @@ map(source.vec, source.my.rmds)
 
 # Data processing
 
+## Introduction
+
+Add some background, methodology or references to critically important papers. [@mudge2004] The `references.bib` file is updated using Rstudio citation tool. Vancouver format is used here, but you can replace the `vancouver.csl` file by any other format (find some examples [here](https://www.zotero.org/styles) ).
+
+Also add some images that have nothing to do with figures generated from this project. The HTML is self-contained, so it's heavier but you can share it without worrying about broken links in embedded graphics.
+
+![[<https://xkcd.com/1945/>](https://xkcd.com/1945/)](inserts/image_example.png "example image")
+
 ## Data import
 
 First, import and pre-process data with `import_raw_data.R`
@@ -129,7 +155,7 @@ First, import and pre-process data with `import_raw_data.R`
 ```{r file=paste0(extracted.path,"/",source.vec[1]), eval=TRUE, results='hide', collapse=TRUE}
 ```
 
-## Show some examples
+## Results
 
 ### Simple table
 
@@ -144,3 +170,5 @@ We show here a simple example of plot with `graph_example.R`.
 
 ```{r file=paste0(extracted.path,"/",source.vec[3]), eval=TRUE, results='asis', collapse=TRUE}
 ```
+
+# References
