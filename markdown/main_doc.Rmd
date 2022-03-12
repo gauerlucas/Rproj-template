@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 
 ### Project structure
 
-Check [README.md](../README.md) for a reminder of the project file structure.
+Check [README.md](https://github.com/gauerlucas/Rproj-template/blob/f3c377d723a70cedf5a403bd1a2296c76a215720/README.md) for a reminder of the project file structure.
 
 ### Libraries used in this project
 
@@ -109,7 +109,7 @@ Add some background, methodology or references to critically important papers. [
 
 Also add some images that have nothing to do with figures generated from this project. The HTML is self-contained, so it's heavier but you can share it without worrying about broken links in embedded graphics.
 
-![[<https://xkcd.com/1945/>](https://xkcd.com/1945/)](inserts/image_example.png "example image")
+![[\<https://xkcd.com/1945/>](https://xkcd.com/1945/)](inserts/image_example.png "example image")
 
 ## Data import
 
