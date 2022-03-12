@@ -6,9 +6,13 @@
 -   All code is in `markdown/`
 -   All outputs are generated in `output/`
 
-You only work on Rmakdown notebooks.   
+Check [example/main_doc.html](example/main_doc.html) to get an overview of the end result.
+
+Objective : You only work on Rmakdown notebooks.   
 It automatically generates synthetic HTML files to share or archive as a lab notebook.  
 The main script to run is found in `markdown/main_doc.rmd` and is self-explanatory.
+
+Mostly based on [R Markdown Cookbook by Yihui Xie, Christophe Dervieux, Emily Riederer](https://bookdown.org/yihui/rmarkdown-cookbook/).
 
 ### To do list :
 
@@ -32,11 +36,23 @@ The main script to run is found in `markdown/main_doc.rmd` and is self-explanato
 
 5.  For the next work sessions, you can open `markdown/main_doc.Rmd` and run it up to the "dev" chunk : this chunk will reload all your previous work in your environment, always using up-to-date data. Then you can start to write new scripts, save them in `markdown/sections`, add them to `main_doc.Rmd` if they are working properly etc.
 
-### Detailed file structure
+### Memo : How to link to Github from existing folder
+
+1.  Open `template-proj.Rproj`, then run `usethis::use_git()`.
+2.  Create an empty `project-name` GitHub repo.
+3.  Open a terminal and `cd` to `template-proj.Rproj` place.
+4.  Run `git push` commands :
+
+```{bash eval=FALSE}
+git remote add origin git@github.com:Username/project-name.git
+git push -u origin master
+```
+
+## Detailed file structure
 
 In `data/` : original raw data (untouched).
 
--   `sub-XXX/` : a data folder for every patient (here with mock data sample)
+-   `sub-XXX/` : a data folder for every patient
 
     -   `agenda_mig.xlsx` : example of migraine agenda of patient "sub-XXX"
     -   `agenda_mig_vars.xlsx` : description of used variables (same for all patients)
@@ -49,7 +65,10 @@ In `markdown/` :
 
 -   `raw_scripts/extracted/` : R scripts automatically extracted from Markdown documents in `markdown/sections`.
 -   `sections/` : Markdown scripts used to process data.
+-   `inserts/` : objects to import (*ie.* images generated elsewhere).
 -   `main_doc.Rmd` : Main working/synthetic document and HTML version to share and review.
+-   `references.bib` : bibliography file used in this document.
+-   `vancouver.csl`: citation format used in this document (Vancouver numeric).
 
 In `output/` (this folder is automatically created when running code in this document) :
 
@@ -58,7 +77,7 @@ In `output/` (this folder is automatically created when running code in this doc
 -   `complete_extracted_table.csv` : summary across all patients (Excel-friendly CSV).
 -   `complete_extracted_table.RData` : summary across all patients (RData file).
 
-### Libraries used in this project
+## Libraries used in this project
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)

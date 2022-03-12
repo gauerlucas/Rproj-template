@@ -24,46 +24,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
 
 # Project management
 
-### File structure :
+### Project structure
 
-In `data/` : original raw data (untouched).
-
--   `sub-XXX/` : a data folder for every patient
-
-    -   `agenda_mig.xlsx` : example of migraine agenda of patient "sub-XXX"
-    -   `agenda_mig_vars.xlsx` : description of used variables (same for all patients)
-
--   `subject_db.xlsx` : list of all patients and some demographic features
-
--   `subject_db_var_description.xlsx` : description of variables used in `patient.xlsx` table.
-
-In `markdown/` :
-
--   `raw_scripts/extracted/` : R scripts automatically extracted from Markdown documents in `markdown/sections`.
--   `sections/` : Markdown scripts used to process data.
--   `inserts/` : objects to import (*ie.* images generated elsewhere).
--   `main_doc.Rmd` : Main working/synthetic document and HTML version to share and review.
--   `references.bib` : bibliography file used in this document.
--   `vancouver.csl`: citation format used in this document (Vancouver numeric).
-
-In `output/` (this folder is automatically created when running code in this document) :
-
--   `sub-xxx/` : contains intermediate files automatically saved during processing.
--   `figs/` : figures generated during the processing.
--   `complete_extracted_table.csv` : summary across all patients (Excel-friendly CSV).
--   `complete_extracted_table.RData` : summary across all patients (RData file).
-
-### Memo : How to link to Github from existing folder
-
-1.  Open `template-proj.Rproj`, then run `usethis::use_git()`.
-2.  Create an empty `project-name` GitHub repo.
-3.  Open a terminal and `cd` to `template-proj.Rproj` place.
-4.  Run `git push` commands :
-
-```{bash eval=FALSE}
-git remote add origin git@github.com:Username/project-name.git
-git push -u origin master
-```
+Check [README.md](../README.md) for a reminder of the project file structure.
 
 ### Libraries used in this project
 
