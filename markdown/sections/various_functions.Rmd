@@ -1,0 +1,47 @@
+---
+title: "Various functions"
+author: "Lucas Gauer"
+date: "Last update : `r format(Sys.time(), '%d %B %Y')`"
+output: 
+  rmdformats::downcute:
+    toc_depth: 3
+    number_sections: false
+    use_bookdown: true
+    downcute_theme: "chaos"
+    self_contained: yes
+    lightbox: true
+    gallery: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+## Basic common librairies
+
+```{r message=FALSE, warning=FALSE, purl=FALSE}
+library(tidyverse)
+```
+
+## MinMode
+
+Returns the maximal mode of categorical values with a hierarchy.
+Priority if ex-aequos : TM > M > MOY > B > TB
+
+```{r eval=FALSE}
+MinMode = function(x){
+    ta = table(x)
+    tam = max(ta)
+    if(is.numeric(x))
+         mod = as.numeric(names(ta)[ta == tam])
+    else
+         mod = names(ta)[ta == tam]
+    mod = ifelse("TM" %in% mod,"TM",
+           ifelse("M" %in% mod, "M",
+                  ifelse("MOY" %in% mod, "MOY",
+                         ifelse("B" %in% mod, "B",
+                                ifelse("TB" %in% mod, "TB",
+                                NA)))))
+    return(mod)}
+```

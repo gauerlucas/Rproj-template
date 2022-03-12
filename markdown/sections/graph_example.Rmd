@@ -1,0 +1,45 @@
+---
+title: "Plot templates"
+author: "Lucas Gauer"
+date: "Last update : `r format(Sys.time(), '%d %B %Y')`"
+output: 
+  rmdformats::downcute:
+    toc_depth: 3
+    number_sections: false
+    use_bookdown: true
+    downcute_theme: "chaos"
+    self_contained: yes
+    lightbox: true
+    gallery: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# Libraries required in this template
+```{r message=FALSE, warning=FALSE, purl=FALSE}
+library(tidyverse)
+library(hrbrthemes) # Nice themes for ggplot2
+library(ragg) # To handle resolution/resize export issues with plots
+```
+
+# Example of basic plot
+
+```{r}
+example <- ggplot(complete_table, aes(Mig_agenda, age_inclusion)) +
+  geom_boxplot()+
+  theme_ipsum_rc()
+```
+
+# Export 
+```{r}
+ragg::agg_png(paste0(output_dir,"/figs/example_plot.png"), 
+              width = 14, height = 12, units = "in", 
+              res = 300)
+plot(example)
+invisible(dev.off())
+knitr::include_graphics(paste0(output_dir,"/figs/example_plot.png"))
+```
+

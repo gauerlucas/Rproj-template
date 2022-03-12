@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+# ignore generated output folder
+output/
+# ignore generated html files
+*.html
+

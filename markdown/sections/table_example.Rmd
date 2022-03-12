@@ -1,0 +1,49 @@
+---
+title: "Table template"
+author: "Lucas Gauer"
+date: "Last update : `r format(Sys.time(), '%d %B %Y')`"
+output: 
+  rmdformats::downcute:
+    toc_depth: 3
+    number_sections: false
+    use_bookdown: true
+    downcute_theme: "chaos"
+    self_contained: yes
+    lightbox: true
+    gallery: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# Libraries required in this template
+```{r message=FALSE, warning=FALSE, purl=FALSE}
+library(tidyverse)
+library(gtsummary) # Easy use for common descriptive tables
+```
+
+# Example of table using `gtsummary`
+
+```{r message=FALSE, warning=FALSE}
+complete_table %>%
+  select(sex, age_inclusion, poids, taille, imc, Mig_agenda) %>%
+  tbl_summary(by = sex,
+              type = list(age_inclusion ~ "continuous",
+                          Mig_agenda ~ "categorical",
+                          poids ~ "continuous",
+                          taille ~ "continuous",
+                          imc ~ "continuous",
+                          sex ~ "dichotomous"),
+              statistic = list(imc ~ "{median} ({p25}, {p75})"),
+              digits = list(poids ~ c(1, 2),
+                            age_inclusion ~ c(0, 0),
+                            imc ~ c(0, 0))) %>%
+  add_n() %>% # add column with total number of non-missing observations
+  add_p() %>% # test for a difference between groups
+  modify_header(label = "**Variable**") %>% # update the column header
+  bold_labels()
+  
+```
+

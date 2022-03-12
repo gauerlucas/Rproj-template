@@ -1,0 +1,146 @@
+---
+title: "New project"
+author: "Lucas Gauer"
+date: "Last update : `r format(Sys.time(), '%d %B %Y')`"
+output: 
+  rmdformats::downcute:
+    toc_depth: 3
+    number_sections: false
+    use_bookdown: true
+    downcute_theme: "chaos"
+    self_contained: yes
+    lightbox: true
+    gallery: true
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+options(knitr.duplicate.label = "allow")
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+# Project management
+
+### File structure :
+
+In `data/` : original raw data (untouched).
+
+-   `sub-XXX/` : a data folder for every patient
+
+    -   `agenda_mig.xlsx` : example of migraine agenda of patient "sub-XXX"
+    -   `agenda_mig_vars.xlsx` : description of used variables (same for all patients)
+
+-   `subject_db.xlsx` : list of all patients and some demographic features
+
+-   `subject_db_var_description.xlsx` : description of variables used in `patient.xlsx` table.
+
+In `markdown/` :
+
+-   `raw_scripts/extracted/` : R scripts automatically extracted from Markdown documents in `markdown/sections`.
+-   `sections/` : Markdown scripts used to process data.
+-   `main_doc.Rmd` : Main working/synthetic document and HTML version to share and review.
+
+In `output/` (this folder is automatically created when running code in this document) :
+
+-   `sub-xxx/` : contains intermediate files automatically saved during processing.
+-   `figs/` : figures generated during the processing.
+-   `complete_extracted_table.csv` : summary across all patients (Excel-friendly CSV).
+-   `complete_extracted_table.RData` : summary across all patients (RData file).
+
+### Libraries used in this project
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl) # Installed with tidyverse but loads separately
+library(hablar) # To easily assign types of variables after data importation.
+library(lubridate) # Installed with tidyverse but loads separately
+library(zoo) # use for rolling average easy computation with rollapplyr
+library(gtsummary) # Easy summary tables
+library(hrbrthemes) # Nice themes for ggplot
+
+# HTML files are knitted using "bookdown" and
+# with the downcute template from "rmdformats".
+```
+
+### Retrieve and extract individual scripts
+
+```{r message=FALSE, results='hide'}
+# Define where are the Rmarkdown files and found them all :
+sections.path <- file.path(rprojroot::find_root("template-proj.Rproj"),
+                           "markdown",
+                           "sections")
+r.files.vec <- list.files(sections.path)
+r.files.vec <- r.files.vec[grepl(".Rmd", r.files.vec)]
+
+# Define where the extracted R files will be stored :
+extracted.path <- file.path(rprojroot::find_root("template-proj.Rproj"),
+                            "markdown",
+                            "raw_scripts",
+                            "extracted")
+
+# Extract the R code from all found Rmarkdown files :
+extract.my.rmds = function(file.i) {
+  file.name <- gsub(".Rmd", "", file.i)
+  extracted.file <- paste0(file.name, ".R")
+  knitr::purl(file.path(sections.path, file.i),
+              file.path(extracted.path, extracted.file))
+  }
+# Extract them : 
+map(r.files.vec, extract.my.rmds)
+```
+
+### List of available scripts
+
+List of all available scripts in the project :
+
+```{r echo=FALSE}
+writeLines(list.files(extracted.path))
+```
+
+Ordered list of currently used scripts :
+
+```{r}
+# Add here the list of extracted R files we want to run sequentially :
+source.vec <- c(
+  "import_raw_data.R",
+  "table_example.R",
+  "graph_example.R"
+  )
+```
+
+```{r eval=FALSE, include=FALSE}
+#### Dev use : Run all scripts in the order decided of source.vec.
+# This chunks loads all objects from called scripts in the current environment, allowing for easy work on updated data. 
+# Set eval to TRUE to use this chunk.
+
+source.my.rmds = function(source.i) {
+  source(file.path(extracted.path, source.i))
+  }
+# Run them :
+map(source.vec, source.my.rmds)
+```
+
+# Data processing
+
+## Data import
+
+First, import and pre-process data with `import_raw_data.R`
+
+```{r file=paste0(extracted.path,"/",source.vec[1]), eval=TRUE, results='hide', collapse=TRUE}
+```
+
+## Show some examples
+
+### Simple table
+
+We show here a simple example summary table with `table_example.R`.
+
+```{r file=paste0(extracted.path,"/",source.vec[2]), eval=TRUE, results='asis', collapse=TRUE}
+```
+
+### Simple plot
+
+We show here a simple example of plot with `graph_example.R`.
+
+```{r file=paste0(extracted.path,"/",source.vec[3]), eval=TRUE, results='asis', collapse=TRUE}
+```
