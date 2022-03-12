@@ -1,5 +1,7 @@
 # A simple project template for clinical studies.
 
+*Not the best nor the most elegant way, but at least it works for my personal use.*
+
 ## This template a nutshell :
 
 -   All data are stored in `data/`
@@ -8,7 +10,7 @@
 
 Check [example/main_doc.html](example/main_doc.html) to get an overview of the end result.
 
-Objective : You only work on Rmakdown notebooks.   
+Objective : You only work on Rmakdown notebooks.  
 It automatically generates synthetic HTML files to share or archive as a lab notebook.  
 The main script to run is found in `markdown/main_doc.rmd` and is self-explanatory.
 
@@ -16,9 +18,9 @@ Mostly based on [R Markdown Cookbook by Yihui Xie, Christophe Dervieux, Emily Ri
 
 ### To do list :
 
--   [x]  Set git
--   [ ]  Set `renv` to manage libraries in a better way
--   [ ]  Add `ggplot`, `diagrammR` and `tableone` templates
+-   [x] Set git
+-   [ ] Set `renv` to manage libraries in a better way
+-   [ ] Add `ggplot`, `diagrammR` and `tableone` templates
 
 ## Proposed workflow
 
